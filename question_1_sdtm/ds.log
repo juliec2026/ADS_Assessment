@@ -1,0 +1,51 @@
+Execution summary:
+Date: 2026-07-06 18:47:19 
+R version 4.6.1 (2026-06-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 24.04.4 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8        LC_COLLATE=C.UTF-8    
+ [5] LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8    LC_PAPER=C.UTF-8       LC_NAME=C             
+ [9] LC_ADDRESS=C           LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] logr_1.3.9           common_1.1.5         dplyr_1.2.1          pharmaverseraw_0.1.1 sdtm.oak_0.2.0      
+
+loaded via a namespace (and not attached):
+ [1] vctrs_0.7.3           cli_3.6.6             knitr_1.51            rlang_1.2.0          
+ [5] xfun_0.59             stringi_1.8.7         otel_0.2.0            purrr_1.2.2          
+ [9] generics_0.1.4        assertthat_0.2.1      glue_1.8.1            roxygen2_8.0.0       
+[13] admiraldev_1.5.0      evaluate_1.0.5        tibble_3.3.1          lifecycle_1.0.5      
+[17] stringr_1.6.0         compiler_4.6.1        timechange_0.4.0      pkgconfig_2.0.3      
+[21] tidyr_1.3.2           R6_2.6.1              utf8_1.2.6            tidyselect_1.2.1     
+[25] pillar_1.11.1         magrittr_2.0.5        tools_4.6.1           withr_3.0.3          
+[29] lubridate_1.9.5       pharmaversesdtm_1.5.0 xml2_1.6.0           
+[1] "Raw dataset loaded successfully. Rows: 850"
+G3;ℹ These terms could not be mapped per the controlled terminology: "Unscheduled 6.1", "Unscheduled 1.1", "Unscheduled 5.1", "Unscheduled 4.1", "Unscheduled 8.2", and "Unscheduled 13.1".
+g[1] "Final SDTM DS records generated: 850"
+tibble [850 × 12] (S3: tbl_df/tbl/data.frame)
+ $ STUDYID : chr [1:850] "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" ...
+ $ DOMAIN  : chr [1:850] "DS" "DS" "DS" "DS" ...
+ $ USUBJID : chr [1:850] "01-701-1015" "01-701-1015" "01-701-1015" "01-701-1023" ...
+ $ DSSEQ   : int [1:850] 1 2 3 1 2 3 4 1 2 3 ...
+ $ DSTERM  : chr [1:850] "FINAL LAB VISIT" "PROTOCOL COMPLETED" "RANDOMIZED" "ADVERSE EVENT" ...
+ $ DSDECOD : chr [1:850] "FINAL LAB VISIT" "COMPLETED" "RANDOMIZED" "ADVERSE EVENT" ...
+ $ DSCAT   : chr [1:850] "OTHER EVENT" "DISPOSITION EVENT" "PROTOCOL MILESTONE" "DISPOSITION EVENT" ...
+ $ VISITNUM: num [1:850] 13 13 3 5 5 201 3 13 13 3 ...
+  ..- attr(*, "label")= chr "Visit Number"
+ $ VISIT   : chr [1:850] "WEEK 26" "WEEK 26" "BASELINE" "WEEK 4" ...
+ $ DSDTC   : 'iso8601' chr [1:850] "2014-02-07T11:45" "2014-02-07" "2014-02-01" "2012-02-09" ...
+ $ DSSTDTC : Date[1:850], format: "2014-02-07" "2014-02-07" "2014-02-01" "2012-02-09" ...
+ $ DSSTDY  : int [1:850] 37 37 31 -178 -178 NA -89 NA NA NA ...
+
