@@ -147,8 +147,8 @@ unique_visits <- sv %>%
 
 ds_mapped_visitnum <- ds_mapped %>%
   left_join(unique_visits, by = "VISIT")%>%
-  # Order by visit and date
-  arrange(patient_number, VISITNUM, DSDTC)
+  # Order by visit and date making protocol completed (without time) are arrange after the Final Lab Visit
+  arrange(patient_number, VISITNUM, nchar(DSDTC) == 10)
 
 # Create SDTM derived variables
 ds_derived <- ds_mapped_visitnum %>%
@@ -162,7 +162,7 @@ ds_derived <- ds_mapped_visitnum %>%
   # DSSEQ
   derive_seq(
     tgt_var = "DSSEQ",
-    rec_vars = c("USUBJID", "VISITNUM", "DSDTC", "DSTERM")
+    rec_vars = c("USUBJID", "VISITNUM")
   ) %>%
   derive_study_day(
     sdtm_in = .,
