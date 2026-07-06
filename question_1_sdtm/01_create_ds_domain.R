@@ -110,7 +110,7 @@ ds_mapped <-
   assign_datetime(
     raw_dat = ds_prepared,
     raw_var = c("DSDTCOL", "DSTMCOL"),
-    raw_fmt = c("d-m-y", "H:M"),
+    raw_fmt = c("m-d-y", "H:M"),
     tgt_var = "DSDTC",
     id_vars = oak_id_vars()
   ) %>%
@@ -118,7 +118,7 @@ ds_mapped <-
   assign_datetime(
     raw_dat = ds_prepared,
     raw_var = "IT.DSSTDAT",
-    raw_fmt = c("d-m-y"),
+    raw_fmt = c("m-d-y"),
     tgt_var = "DSSTDTC",
     id_vars = oak_id_vars()
   ) %>%
@@ -146,7 +146,9 @@ unique_visits <- sv %>%
   arrange(VISITNUM)
 
 ds_mapped_visitnum <- ds_mapped %>%
-  left_join(unique_visits, by = "VISIT")
+  left_join(unique_visits, by = "VISIT")%>%
+  # Order by visit and date
+  arrange(patient_number, VISITNUM, DSDTC)
 
 # Create SDTM derived variables
 ds_derived <- ds_mapped_visitnum %>%
@@ -157,9 +159,10 @@ ds_derived <- ds_mapped_visitnum %>%
     DSTERM = toupper(DSTERM),
     DSDECOD = toupper(DSDECOD)
   ) %>%
+  # DSSEQ
   derive_seq(
     tgt_var = "DSSEQ",
-    rec_vars = c("USUBJID", "DSTERM")
+    rec_vars = c("USUBJID", "VISITNUM", "DSDTC", "DSTERM")
   ) %>%
   derive_study_day(
     sdtm_in = .,
