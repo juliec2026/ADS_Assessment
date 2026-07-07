@@ -40,7 +40,7 @@ ae_table
 # save output
 ae_table %>%
   as_gt() %>%
-  gt::gtsave("question_3_tlg/t_ae_teae.html")
+  gt::gtsave("question_3_tlg/ae_summary_table.html")
 
 # =========================================================================
 # END OF SCRIPT: Turn off Logging and close file
