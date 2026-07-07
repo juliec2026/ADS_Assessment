@@ -42,20 +42,61 @@ loaded via a namespace (and not attached):
  $ USUBJID : chr  "01-701-1015" "01-701-1015" "01-701-1015" "01-701-1023" ...
   ..- attr(*, "label")= chr "Unique Subject Identifier"
  $ DSSEQ   : int  1 2 3 1 2 3 4 1 2 3 ...
-  ..- attr(*, "label")= chr "Sequence Number"
- $ DSTERM  : chr  "RANDOMIZED" "FINAL LAB VISIT" "PROTOCOL COMPLETED" "RANDOMIZED" ...
-  ..- attr(*, "label")= chr "Reported Term for the Disposition Event"
- $ DSDECOD : chr  "RANDOMIZED" "FINAL LAB VISIT" "COMPLETED" "RANDOMIZED" ...
-  ..- attr(*, "label")= chr "Standardized Disposition Term"
- $ DSCAT   : chr  "PROTOCOL MILESTONE" "OTHER EVENT" "DISPOSITION EVENT" "PROTOCOL MILESTONE" ...
-  ..- attr(*, "label")= chr "Category for Disposition Event"
- $ VISITNUM: num  3 13 13 3 5 5 201 3 13 13 ...
-  ..- attr(*, "label")= chr "Visit Number"
- $ VISIT   : chr  "BASELINE" "WEEK 26" "WEEK 26" "BASELINE" ...
-  ..- attr(*, "label")= chr "Visit Name"
- $ DSDTC   : 'iso8601' chr  "2014-01-02" "2014-07-02T11:45" "2014-07-02" "2012-08-05" ...
-  ..- attr(*, "label")= chr "Date/Time of Collection"
- $ DSSTDTC : Date, format: "2014-01-02" "2014-07-02" "2014-07-02" "2012-08-05" ...
- $ DSSTDY  : int  1 182 182 1 29 29 198 1 180 180 ...
-  ..- attr(*, "label")= chr "Study Day of Start of Disposition Event"
-
+  ..- Table 1 Column Name   Header                                  
+label                 "**Characteristic**"                    
+stat_1                "**Placebo**  \nN = 65"                 
+stat_2                "**Xanomeline High Dose**  \nN = 68"    
+stat_3                "**Xanomeline Low Dose**  \nN = 84"     
+Table 2 Column Name   Header                                   
+label                 "**Characteristic**"                     
+stat_1                "**Placebo**  \nN = 191"                 
+stat_2                "**Xanomeline High Dose**  \nN = 296"    
+stat_3                "**Xanomeline Low Dose**  \nN = 292"     
+Table 1 Column Name   Header                                  
+label                 "**Characteristic**"                    
+stat_1                "**Placebo**  \nN = 65"                 
+stat_2                "**Xanomeline High Dose**  \nN = 68"    
+stat_3                "**Xanomeline Low Dose**  \nN = 84"     
+stat_0                "**Total**"                             
+Table 2 Column Name   Header                                                                             
+label                 "**Primary System Organ Class**  \n    **Reported Term for the Adverse Event**"    
+stat_1                "**Placebo**  \nN = 86"                                                            
+stat_2                "**Xanomeline High Dose**  \nN = 72"                                               
+stat_3                "**Xanomeline Low Dose**  \nN = 96"                                                
+stat_0                "**Total**"                                                                        
+Table 1 Column Name   Header                                  
+label                 "**Characteristic**"                    
+stat_1                "**Placebo**  \nN = 65"                 
+stat_2                "**Xanomeline High Dose**  \nN = 68"    
+stat_3                "**Xanomeline Low Dose**  \nN = 84"     
+stat_0                "**Total**"                             
+Table 2 Column Name   Header                                                                             
+label                 "**Primary System Organ Class**  \n    **Reported Term for the Adverse Event**"    
+stat_1                "**Placebo**  \nN = 86"                                                            
+stat_2                "**Xanomeline High Dose**  \nN = 72"                                               
+stat_3                "**Xanomeline Low Dose**  \nN = 96"                                                
+stat_0                "**Total**"                                                                        
+Table 1 Column Name   Header                                  
+label                 "**Characteristic**"                    
+stat_1                "**Placebo**  \nN = 65"                 
+stat_2                "**Xanomeline High Dose**  \nN = 68"    
+stat_3                "**Xanomeline Low Dose**  \nN = 84"     
+stat_0                "**Total**"                             
+Table 2 Column Name   Header                                                                             
+label                 "**Primary System Organ Class**  \n    **Reported Term for the Adverse Event**"    
+stat_1                "**Placebo**  \nN = 86"                                                            
+stat_2                "**Xanomeline High Dose**  \nN = 72"                                               
+stat_3                "**Xanomeline Low Dose**  \nN = 96"                                                
+stat_0                "**Total**"                                                                        
+Table 1 Column Name   Header                                  
+label                 "**Characteristic**"                    
+stat_1                "**Placebo**  \nN = 65"                 
+stat_2                "**Xanomeline High Dose**  \nN = 68"    
+stat_3                "**Xanomeline Low Dose**  \nN = 84"     
+stat_0                "Total"                                 
+Table 2 Column Name   Header                                                                             
+label                 "**Primary System Organ Class**  \n    **Reported Term for the Adverse Event**"    
+stat_1                "**Placebo**  \nN = 86"                                                            
+stat_2                "**Xanomeline High Dose**  \nN = 72"                                               
+stat_3                "**Xanomeline Low Dose**  \nN = 96"                                                
+stat_0                "Total"                                                                            
