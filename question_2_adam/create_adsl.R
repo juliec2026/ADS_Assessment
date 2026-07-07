@@ -20,6 +20,7 @@ library(pharmaversesdtm)
 library(lubridate)
 library(stringr)
 library(metatools)
+library(haven)
 
 # Read SDTM Data
 dm <- pharmaversesdtm::dm
@@ -157,6 +158,19 @@ adsl <- adsl_labelled %>%
 
 # Save output dataset
 write.csv(adsl, "question_2_adam/adsl.csv", row.names = FALSE)
+
+# Now write the file
+write_xpt(
+  data = adsl, 
+  path = "question_2_adam/adsl.xpt", 
+  name = "ADSL", 
+  version = 5,
+  label = "Subject-Level Analysis Dataset"
+)
+
+# Read the XPT file back to verify label presence
+my_data <- haven::read_xpt("question_2_adam/adsl.xpt")
+View(my_data)
 
 
 # Log info

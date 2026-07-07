@@ -17,6 +17,7 @@ sessionInfo()
 library(sdtm.oak)
 library(pharmaverseraw)
 library(dplyr)
+library(haven)
 
 # Load Study Controlled Terminology (CT) Specs
 study_ct <- read.csv("question_1_sdtm/sdtm_ct.csv")
