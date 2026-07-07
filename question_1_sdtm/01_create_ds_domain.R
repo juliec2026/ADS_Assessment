@@ -176,8 +176,17 @@ ds_derived <- ds_mapped_visitnum %>%
     "DSSTDTC", "DSSTDY"
   )
 
+
+# Add Labels
+# Apply the required "Disposition" label to the entire dataset dataframe
+attr(ds_derived, "label") <- "Disposition"
+
+# Export to XPT using haven (which respects the assigned dataset attribute)
+library(haven)
+write_xpt(ds_derived, "question_1_sdtm/ds.xpt", name = "DS", version = 5)
+
 # Save output dataset
-write.csv(ds_derived, "question_1_sdtm/ds.csv", row.names = FALSE)
+# write.csv(ds_derived, "question_1_sdtm/ds.csv", row.names = FALSE)
 
 # Log info
 print(paste("Final SDTM DS records generated:", nrow(ds_derived)))
