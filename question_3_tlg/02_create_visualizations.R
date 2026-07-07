@@ -22,26 +22,10 @@ library(ggplot2)
 # Output 1
 # =========
 
-# 1. Clean and prepare the data
-ae_severity_data <- pharmaverseadam::adae %>%
-  # Filter for Safety population and Treatment-Emergent AEs
-  filter(SAFFL == "Y" & TRTEMFL == "Y", !is.na(ACTARM), !is.na(AESEV)) %>%
-  # Convert AESEV to a factor with an explicit clinical order (Mild -> Moderate -> Severe)
-  mutate(
-    AESEV = factor(AESEV, levels = c("MILD", "MODERATE", "SEVERE")),
-    ACTARM = factor(ACTARM)
-  ) %>%
-  # Calculate percentages within each treatment arm
-  count(ACTARM, AESEV) %>%
-  group_by(ACTARM) %>%
-  mutate(pct = n / sum(n) * 100) %>%
-  ungroup()
-
-# 2. Generate the Stacked Percentage Bar Chart
-# 1. Clean and prepare the data (calculating absolute counts only)
+# Clean and prepare the data (calculating absolute counts only)
 ae_severity_counts <- pharmaverseadam::adae %>%
-  # Filter for Safety population and Treatment-Emergent AEs
-  filter(SAFFL == "Y" & TRTEMFL == "Y", !is.na(ACTARM), !is.na(AESEV)) %>%
+  # Filter for Safety population
+  filter(SAFFL == "Y", !is.na(ACTARM), !is.na(AESEV)) %>%
   # Convert AESEV to a factor with an explicit clinical order (Mild -> Moderate -> Severe)
   mutate(
     AESEV = factor(AESEV, levels = c("MILD", "MODERATE", "SEVERE")),
@@ -50,17 +34,9 @@ ae_severity_counts <- pharmaverseadam::adae %>%
   # Count the occurrences
   count(ACTARM, AESEV)
 
-# 2. Generate the Stacked Count Bar Chart
+# Generate the Stacked Count Bar Chart
 ae_plot <- ggplot(ae_severity_counts, aes(x = ACTARM, y = n, fill = AESEV)) +
   geom_bar(stat = "identity", position = "stack", width = 0.6) +
-  # Add labels showing the raw count 'n' inside each stack segment
-  # geom_text(
-  #   aes(label = n), 
-  #   position = position_stack(vjust = 0.5), 
-  #   size = 4, 
-  #   color = "white",
-  #   fontface = "bold"
-  # ) +
   scale_fill_manual(
     values = c("MILD" = "#d46f4d", "MODERATE" = "#1b9e77", "SEVERE" = "#2c7bb6"),
     name = "Severity/Intensity"
@@ -84,10 +60,6 @@ ae_plot <- ggplot(ae_severity_counts, aes(x = ACTARM, y = n, fill = AESEV)) +
 print(ae_plot)
 
 # Save the plot as a PNG image
-if (!dir.exists("question_3_tlg")) {
-  dir.create("question_3_tlg", recursive = TRUE)
-}
-
 ggsave(
   filename = "question_3_tlg/f_ae_severity_distribution.png",
   plot = ae_plot,
@@ -105,13 +77,13 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 
-# 1. New Denominator: Count unique subjects who have at least one TEAE
+# New Denominator: Count unique subjects who have at least one TEAE
 n_ae_population <- pharmaverseadam::adae %>% 
   filter(SAFFL == "Y", !is.na(AETERM)) %>% 
   pull(USUBJID) %>% 
   n_distinct()
 
-# 2. Process AE data to find unique subjects per AE term (Incidence)
+# Process AE data to find unique subjects per AE term (Incidence)
 ae_counts <- pharmaverseadam::adae %>%
   filter(SAFFL == "Y", !is.na(AETERM)) %>%
   # Count unique subjects per AE term (standard safety incidence approach)
@@ -120,7 +92,7 @@ ae_counts <- pharmaverseadam::adae %>%
   # Slice for the top 10 highest incidence terms
   slice_max(order_by = n_subjects, n = 10, with_ties = FALSE)
 
-# 3. Calculate Incidence Rates and 95% Confidence Intervals (Exact Binomial Method)
+# Calculate Incidence Rates and 95% Confidence Intervals (Exact Binomial Method)
 ae_ci_data <- ae_counts %>%
   rowwise() %>%
   mutate(
@@ -135,7 +107,7 @@ ae_ci_data <- ae_counts %>%
   # Reorder factor for clean plotting layout (highest on top)
   mutate(AETERM = reorder(AETERM, incidence_rate))
 
-# 4. Generate the Forest Plot / Horizontal Bar Plot combo
+# Generate the Forest Plot / Horizontal Bar Plot combo
 ae_top10_plot <- ggplot(ae_ci_data, aes(x = incidence_rate, y = AETERM)) +
   # Visual backing bar
   #geom_bar(stat = "identity", fill = "#7fa998", alpha = 0.6, width = 0.5) +
@@ -157,13 +129,10 @@ ae_top10_plot <- ggplot(ae_ci_data, aes(x = incidence_rate, y = AETERM)) +
     panel.grid.minor = element_blank()
   )
 
-# 5. Print the plot to the device
+# Print the plot to the device
 print(ae_top10_plot)
 
-# 6. Save the plot as a PNG image
-if (!dir.exists("question_3_tlg")) {
-  dir.create("question_3_tlg", recursive = TRUE)
-}
+# Save the plot as a PNG image
 ggsave(
   filename = "question_3_tlg/f_ae_top10_incidence_ci.png",
   plot = ae_top10_plot,
