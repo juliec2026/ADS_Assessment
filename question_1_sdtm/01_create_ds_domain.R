@@ -151,11 +151,14 @@ ds_mapped_visitnum <- ds_mapped %>%
   arrange(patient_number, VISITNUM, nchar(DSDTC) == 10)
 
 # Create SDTM derived variables
+# et the study name as a single string from your raw data
+study_name <- unique(ds_prepared$STUDY)[1]
+
 ds_derived <- ds_mapped_visitnum %>%
   dplyr::mutate(
-    STUDYID = ds_prepared$STUDY,
+    STUDYID = study_name,
     DOMAIN = "DS",
-    USUBJID = paste0("01-", ds_prepared$PATNUM),
+    USUBJID = paste0("01-", patient_number),
     DSTERM = toupper(DSTERM),
     DSDECOD = toupper(DSDECOD)
   ) %>%
@@ -177,20 +180,37 @@ ds_derived <- ds_mapped_visitnum %>%
   )
 
 
-# Add Labels
-# Apply the required "Disposition" label to the entire dataset dataframe
-attr(ds_derived, "label") <- "Disposition"
+# All labels
+ds_final <- as.data.frame(ds_derived)
+  attr(ds_final$STUDYID, "label")  <- "Study Identifier"
+  attr(ds_final$DOMAIN, "label")   <- "Domain Abbreviation"
+  attr(ds_final$USUBJID, "label")  <- "Unique Subject Identifier"
+  attr(ds_final$DSSEQ, "label")    <- "Sequence Number"
+  attr(ds_final$DSTERM, "label")   <- "Reported Term for the Disposition Event"
+  attr(ds_final$DSDECOD, "label")  <- "Standardized Disposition Term"
+  attr(ds_final$DSCAT, "label")    <- "Category for Disposition Event"
+  attr(ds_final$VISITNUM, "label") <- "Visit Number"
+  attr(ds_final$VISIT, "label")    <- "Visit Name"
+  attr(ds_final$DSDTC, "label")    <- "Date/Time of Collection"
+  attr(ds_final$DSSTDTC, "label")  <- "Start Date/Time of Disposition Event"
+  attr(ds_final$DSSTDY, "label")   <- "Study Day of Start of Disposition Event"
 
-# Export to XPT using haven (which respects the assigned dataset attribute)
-library(haven)
-write_xpt(ds_derived, "question_1_sdtm/ds.xpt", name = "DS", version = 5)
+# Now write the file
+write_xpt(
+  data = ds_final, 
+  path = "question_1_sdtm/ds.xpt", 
+  name = "DS", 
+  version = 5,
+  label = "Disposition"
+)
 
-# Save output dataset
-# write.csv(ds_derived, "question_1_sdtm/ds.csv", row.names = FALSE)
+# Read the XPT file back to verify label presence
+my_data <- haven::read_xpt("question_1_sdtm/ds.xpt")
+View(my_data)
 
 # Log info
-print(paste("Final SDTM DS records generated:", nrow(ds_derived)))
-str(ds_derived)
+print(paste("Final SDTM DS records generated:", nrow(ds_final)))
+str(ds_final)
 cat("\n")
 
 # =========================================================================
