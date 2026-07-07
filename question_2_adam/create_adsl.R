@@ -19,6 +19,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(pharmaversesdtm)
 library(lubridate)
 library(stringr)
+library(metatools)
 
 # Read SDTM Data
 dm <- pharmaversesdtm::dm
@@ -138,13 +139,29 @@ adsl3 <- adsl2 %>%
   # Clean up the intermediate summary date columns
   select(-LST_VS, -LST_AE, -LST_DS, -LST_TRT)
 
+adsl_labelled <- adsl3 %>%
+  metatools::add_labels(
+    AGEGR9   = "Age Group 9",
+    AGEGR9N  = "Age Group 9 (N)",
+    TRTSDTM  = "Treatment Start Datetime",
+    TRTSTMF  = "Treatment Start Time Imputation Flag",
+    TRTEDTM  = "Treatment End Datetime",
+    TRTETMF  = "Treatment End Time Imputation Flag",
+    ITTFL    = "Intent-to-Treat Population Flag",
+    LSTAVLDT = "Last Known Alive Date"
+  )
+
+# RFICDTC is always blank and only optional in ADSL, so removed
+adsl <- adsl_labelled %>%
+  select(-RFICDTC)
 
 # Save output dataset
-write.csv(adsl3, "question_2_adam/adsl.csv", row.names = FALSE)
+write.csv(adsl, "question_2_adam/adsl.csv", row.names = FALSE)
+
 
 # Log info
-print(paste("Final ADaM ADSL records generated:", nrow(adsl3)))
-str(adsl3)
+print(paste("Final ADaM ADSL records generated:", nrow(adsl)))
+str(adsl)
 cat("\n")
 
 # =========================================================================
